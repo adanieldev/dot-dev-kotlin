@@ -4,8 +4,10 @@ import com.ryanharter.ktor.moshi.*
 import dev.adaniel.api.*
 import dev.adaniel.repository.*
 import dev.adaniel.webapp.*
+import freemarker.cache.*
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.freemarker.*
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -26,6 +28,10 @@ fun Application.module(testing: Boolean = false) {
 
     install(ContentNegotiation) {
         moshi()
+    }
+
+    install(FreeMarker) {
+        templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
     }
 
     val db = InMemoryRepository()

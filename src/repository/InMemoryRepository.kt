@@ -1,8 +1,7 @@
 package dev.adaniel.repository
 
-import dev.adaniel.model.Post
-import java.lang.IllegalArgumentException
-import java.util.concurrent.atomic.AtomicInteger
+import dev.adaniel.model.*
+import java.util.concurrent.atomic.*
 
 class InMemoryRepository : Repository {
 
@@ -23,7 +22,7 @@ class InMemoryRepository : Repository {
     override suspend fun post(id: String) =
         posts.find { it.id.toString() == id } ?: throw IllegalArgumentException("No post found for $id")
 
-    override suspend fun posts() = posts.toList()
+    override suspend fun posts() = posts
 
     override suspend fun remove(post: Post) {
         if (!posts.contains(post)) {
